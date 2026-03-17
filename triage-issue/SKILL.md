@@ -1,11 +1,11 @@
 ---
 name: triage-issue
-description: Triage a bug or issue by exploring the codebase to find root cause, then create a GitHub issue with a TDD-based fix plan. Use when user reports a bug, wants to file an issue, mentions "triage", or wants to investigate and plan a fix for a problem.
+description: Triage a bug or issue by exploring the codebase to find root cause, then create a local Markdown file with a TDD-based fix plan. Use when user reports a bug, wants to file an issue, mentions "triage", or wants to investigate and plan a fix for a problem.
 ---
 
 # Triage Issue
 
-Investigate a reported problem, find its root cause, and create a GitHub issue with a TDD fix plan. This is a mostly hands-off workflow - minimize questions to the user.
+Investigate a reported problem, find its root cause, and create a work item file with a TDD fix plan. This is a mostly hands-off workflow - minimize questions to the user.
 
 ## Process
 
@@ -54,11 +54,17 @@ Rules:
 - Include a final refactor step if needed
 - **Durability**: Only suggest fixes that would survive radical codebase changes. Describe behaviors and contracts, not internal structure. Tests assert on observable outcomes (API responses, UI state, user-visible effects), not internal state. A good suggestion reads like a spec; a bad one reads like a diff.
 
-### 5. Create the GitHub issue
+### 5. Create the work item file
 
-Create a GitHub issue using `gh issue create` with the template below. Do NOT ask the user to review before creating - just create it and share the URL.
+Create `john_plans/` if it doesn't exist, then create a Markdown file named `issue-<description>.md` with the template below. Do NOT ask the user to review before creating - just create it and share the file path.
 
 <issue-template>
+---
+type: issue
+status: open
+blocked_by: null  # or relative path if blocked by another issue
+created: YYYY-MM-DD
+---
 
 ## Problem
 
@@ -99,4 +105,4 @@ A numbered list of RED-GREEN cycles:
 
 </issue-template>
 
-After creating the issue, print the issue URL and a one-line summary of the root cause.
+After creating the file, print the file path and a one-line summary of the root cause.
